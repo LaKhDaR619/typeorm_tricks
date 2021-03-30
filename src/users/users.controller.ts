@@ -47,7 +47,7 @@ router.get("/tag-problem/:tag", async (req, res) => {
 });
 
 router.get("/tag/:tag", async (req, res) => {
-  const { tag } = req.params;]
+  const { tag } = req.params;
 
   const result = await getUsersByTag(tag.toUpperCase());
   return res.json(result);
