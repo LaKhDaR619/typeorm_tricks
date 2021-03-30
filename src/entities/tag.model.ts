@@ -3,20 +3,22 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import User from "./user.model";
 
-@Entity("users")
-export default class User extends BaseEntity {
+@Entity()
+export default class Tag extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   name: string;
 
-  @Column()
-  age: number;
+  @ManyToMany(() => User)
+  users: User[];
 
   @CreateDateColumn()
   createdAt: Date;

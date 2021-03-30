@@ -4,7 +4,7 @@
   "port": 5432,
   "username": "postgres",
   "password": "123admin",
-  "database": "typeorm_tutorial",
+  "database": "typeorm_tricks",
   "synchronize": true,
   "logging": false,
   "entities": ["src/entities/**/*.ts"],
