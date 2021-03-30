@@ -1,7 +1,7 @@
 import "./App.css";
 import "antd/dist/antd.css";
 import { useEffect, useState } from "react";
-import { Button, Col, Input, Row, Table, Typography } from "antd";
+import { Button, Col, Input, Row, Table, Tag, Typography } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
 function App() {
@@ -65,6 +65,26 @@ function App() {
       key: "action",
       render: (text, record) => (
         <DeleteOutlined onClick={() => handleDelete(record.id)} />
+      ),
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      render: (tags) => (
+        <>
+          {tags?.map((tag) => {
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "loser") {
+              color = "volcano";
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
       ),
     },
   ];
