@@ -1,0 +1,13 @@
+{
+  "name": "typeorm_tutorial",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "dependencies": {
+    "@types/node": "^14.14.37",
+    "typeorm": "^0.2.32"
+  }
+}
