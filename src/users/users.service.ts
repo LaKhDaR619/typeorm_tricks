@@ -3,7 +3,11 @@ import Tag from "../entities/tag.model";
 import User from "../entities/user.model";
 
 export const getAllUsers = async () => {
-  return User.find({ relations: ["tags"] });
+  const result = await User.createQueryBuilder("user")
+    .leftJoinAndSelect("user.tags", "tags")
+    .getMany();
+
+  return result;
 };
 
 export const addUser = async (user: User) => {
@@ -12,7 +16,7 @@ export const addUser = async (user: User) => {
   newUser.age = user.age;
 
   // tags
-  const n = Math.floor(Math.random() * 4);
+  const n = Math.round(Math.random() * 5);
   newUser.tags = (await Tag.find())
     .sort(() => Math.random() - Math.random())
     .slice(0, n);
@@ -29,4 +33,40 @@ export const deleteUser = async (id: string) => {
   await fetchedUser.remove();
 
   return id;
+};
+
+export const getAllUsersByTag = async () => {
+  const result = await User.createQueryBuilder("user")
+    .leftJoinAndSelect("user.tags", "searchTags")
+    .leftJoinAndSelect("user.tags", "tags")
+    .where(`searchTags.name = 'DEVELOPER'`)
+    .orderBy("tags.index")
+    .getMany();
+
+  return result;
+};
+
+export const getUsersByTagProblem = async (tag: string) => {
+  const result = await User.createQueryBuilder("user")
+    .leftJoinAndSelect("user.tags", "tags")
+    .where(`tags.name = :tag`, {
+      tag,
+    })
+    .orderBy("tags.index")
+    .getMany();
+
+  return result;
+};
+
+export const getUsersByTag = async (tag: string) => {
+  const result = await User.createQueryBuilder("user")
+    .leftJoinAndSelect("user.tags", "searchTags")
+    .leftJoinAndSelect("user.tags", "tags")
+    .where(`searchTags.name = :tag`, {
+      tag,
+    })
+    .orderBy("tags.index")
+    .getMany();
+
+  return result;
 };

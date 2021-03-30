@@ -1,5 +1,12 @@
 import * as express from "express";
-import { getAllUsers, addUser, deleteUser } from "./users.service";
+import {
+  getAllUsers,
+  addUser,
+  deleteUser,
+  getAllUsersByTag,
+  getUsersByTag,
+  getUsersByTagProblem,
+} from "./users.service";
 
 const router = express.Router();
 
@@ -25,6 +32,25 @@ router.delete("/:id", async (req, res) => {
     console.log(err);
     res.status(400).json({ message: err.message });
   }
+});
+
+router.get("/ordered-by-tag", async (req, res) => {
+  const result = await getAllUsersByTag();
+  return res.json(result);
+});
+
+router.get("/tag-problem/:tag", async (req, res) => {
+  const { tag } = req.params;
+
+  const result = await getUsersByTagProblem(tag.toUpperCase());
+  return res.json(result);
+});
+
+router.get("/tag/:tag", async (req, res) => {
+  const { tag } = req.params;]
+
+  const result = await getUsersByTag(tag.toUpperCase());
+  return res.json(result);
 });
 
 export default router;

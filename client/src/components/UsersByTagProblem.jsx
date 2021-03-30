@@ -1,27 +1,9 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Col, Input, Row, Table, Tag, Typography } from "antd";
+import { Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 
-const Main = () => {
+const UsersByTagProblem = () => {
   const [users, setUsers] = useState([]);
-
-  const [name, setName] = useState("");
-  const [age, setAge] = useState();
-
-  const handleAddUser = async () => {
-    try {
-      if (name && age) {
-        await fetch("/users", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, age }),
-        });
-        getUsers();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleDelete = async (id) => {
     if (id) {
@@ -34,7 +16,7 @@ const Main = () => {
 
   const getUsers = async () => {
     try {
-      const res = await fetch("/users");
+      const res = await fetch("/users/tag-problem/developer");
       const data = await res.json();
 
       setUsers(data);
@@ -88,30 +70,11 @@ const Main = () => {
     },
   ];
   return (
-    <Row gutter={[16, 16]}>
-      <h2>All Users</h2>
-      <Col span={24}>
-        <Typography style={{ width: 100 }}>Name: </Typography>
-        <Input value={name} onChange={(e) => setName(e.target.value)} />
-      </Col>
-      <Col span={24}>
-        <Typography>Age: </Typography>
-        <Input
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          type="number"
-        />
-      </Col>
-      <Col span={24}>
-        <Button style={{ width: "100%" }} onClick={handleAddUser}>
-          Add User
-        </Button>
-      </Col>
-      <Col span={24}>
-        <Table dataSource={users} columns={columns} pagination={false} />
-      </Col>
-    </Row>
+    <div className="section">
+      <h2>fetching by DEVELOPER tag with the Problem </h2>
+      <Table dataSource={users} columns={columns} pagination={false} />
+    </div>
   );
 };
 
-export default Main;
+export default UsersByTagProblem;

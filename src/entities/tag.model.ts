@@ -20,6 +20,9 @@ export default class Tag extends BaseEntity {
   @ManyToMany(() => User)
   users: User[];
 
+  @Column()
+  index: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
