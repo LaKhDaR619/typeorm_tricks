@@ -48,8 +48,6 @@ export default class Tag extends BaseEntity {
 }
 ```
 
-i made a playground site to test out the tricks on: `playground url`
-
 for now we can add users and the system can asign random tags for each one
 
 ## Tricks
