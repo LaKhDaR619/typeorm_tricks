@@ -4,7 +4,7 @@ import { createConnection } from "typeorm";
 
 import userRoutes from "./users/users.controller";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 9000;
 const app = express();
 
 app.use(express.json());

@@ -56,7 +56,6 @@ for now we can add users and the system can asign random tags for each one
 
 1. Sort a Relation Array (sometimes we can't sort by name or date so we make our own sort)
 2. fetching by tag gets only that tag (workaround to get all tags for a user by tag)
-3. typeorm power working with a relation from two sides
 
 ## Sort a Relation Array
 
@@ -127,16 +126,3 @@ User.createQueryBuilder("user")
 ```
 
 this way we select all the user that have the tags with all thier tags with them.
-
-## typeorm power working with a relation from two sides
-
-## site walkthrough
-
-1. first part is where the user adds user by name and age, and the users get random tags.
-2. second part is were the first trick happens
-
-## Features
-
-```
-
-```

@@ -1,16 +1,16 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Table, Tag } from "antd";
-import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 
 const SortedArray = () => {
-  const [users, setUsers] = useState([]);
+  const cache = useQueryClient();
 
   const handleDelete = async (id) => {
     if (id) {
       await fetch(`/users/${id}`, {
         method: "DELETE",
       });
-      getUsers();
+      cache.invalidateQueries("users");
     }
   };
 
@@ -19,15 +19,14 @@ const SortedArray = () => {
       const res = await fetch("/users/ordered-by-tag");
       const data = await res.json();
 
-      setUsers(data);
+      return data;
     } catch (err) {
       console.log(err);
+      return [];
     }
   };
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  const { data: users } = useQuery(["users", "array"], getUsers);
 
   const columns = [
     {
@@ -71,7 +70,7 @@ const SortedArray = () => {
   ];
   return (
     <div className="section">
-      <h2>Sorted User tags by COOL -TEACHER - DEVELOPER - LOSER </h2>
+      <h2>Sorted User tags by COOL -TEACHER - NICE - DEVELOPER - LOSER </h2>
       <Table dataSource={users} columns={columns} pagination={false} />
     </div>
   );

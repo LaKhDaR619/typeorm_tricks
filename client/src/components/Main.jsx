@@ -1,12 +1,13 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row, Table, Tag, Typography } from "antd";
 import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 
 const Main = () => {
-  const [users, setUsers] = useState([]);
-
   const [name, setName] = useState("");
   const [age, setAge] = useState();
+
+  const cache = useQueryClient();
 
   const handleAddUser = async () => {
     try {
@@ -16,7 +17,7 @@ const Main = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, age }),
         });
-        getUsers();
+        cache.invalidateQueries("users");
       }
     } catch (err) {
       console.log(err);
@@ -28,7 +29,7 @@ const Main = () => {
       await fetch(`/users/${id}`, {
         method: "DELETE",
       });
-      getUsers();
+      cache.invalidateQueries("users");
     }
   };
 
@@ -37,15 +38,14 @@ const Main = () => {
       const res = await fetch("/users");
       const data = await res.json();
 
-      setUsers(data);
+      return data;
     } catch (err) {
       console.log(err);
+      return [];
     }
   };
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  const { data: users } = useQuery("users", getUsers);
 
   const columns = [
     {
@@ -89,7 +89,7 @@ const Main = () => {
   ];
   return (
     <Row gutter={[16, 16]}>
-      <h2>All Users</h2>
+      <h2>Adding Users with Random Tags</h2>
       <Col span={24}>
         <Typography style={{ width: 100 }}>Name: </Typography>
         <Input value={name} onChange={(e) => setName(e.target.value)} />

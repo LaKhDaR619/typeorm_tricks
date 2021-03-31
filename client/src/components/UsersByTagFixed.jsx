@@ -1,16 +1,16 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Table, Tag } from "antd";
-import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 
 const UsersByTagFixed = () => {
-  const [users, setUsers] = useState([]);
+  const cache = useQueryClient();
 
   const handleDelete = async (id) => {
     if (id) {
       await fetch(`/users/${id}`, {
         method: "DELETE",
       });
-      getUsers();
+      cache.invalidateQueries("users");
     }
   };
 
@@ -19,15 +19,14 @@ const UsersByTagFixed = () => {
       const res = await fetch("/users/tag/developer");
       const data = await res.json();
 
-      setUsers(data);
+      return data;
     } catch (err) {
       console.log(err);
+      return [];
     }
   };
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  const { data: users } = useQuery(["users", "tag-fix", ""], getUsers);
 
   const columns = [
     {
