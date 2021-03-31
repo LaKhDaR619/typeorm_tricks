@@ -142,5 +142,6 @@ this way we select all the user that have the tags with all thier tags with them
 
 ### install and setup client
 
-1. `yarn` or `npm install`
-2. `yarn start` or `npm start`
+1. `cd client`
+2. `yarn` or `npm install`
+3. `yarn start` or `npm start`
