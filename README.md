@@ -126,3 +126,21 @@ User.createQueryBuilder("user")
 ```
 
 this way we select all the user that have the tags with all thier tags with them.
+
+## setup
+
+### prerequisite
+
+1. preapre a postgres db
+2. change the ormconfig.json to match your config
+
+### instal and setup server
+
+1. `yarn global add nodemon ts-node` or `npm i -g nodemon ts-node`
+2. `yarn` or `npm install`
+3. `yarn start` or `npm start`
+
+### install and setup client
+
+1. `yarn` or `npm install`
+2. `yarn start` or `npm start`
