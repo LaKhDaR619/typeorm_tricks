@@ -1,4 +1,6 @@
-# TypeORM tricks
+# How I Learned Important TypeORM tricks (sort relations array, filter by relation array)
+
+This Article requires at least basic knowledge of typeorm.
 
 The initial state of our tutorial is a simple `user` entity as follows:
 
